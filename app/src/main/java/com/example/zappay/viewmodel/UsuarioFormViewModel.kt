@@ -1,70 +1,61 @@
 package com.example.zappay.viewmodel
 
-import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.zappay.model.UsuarioForm
 import com.example.zappay.model.UsuarioFormError
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-
 
 class UsuarioFormViewModel : ViewModel() {
 
-    val TAG = "MyActivity" // Define a tag for your logs
+    var nombre by mutableStateOf("")
+    var correo by mutableStateOf("")
+    var aceptaTerminos by mutableStateOf(false)
 
-    private val _form = MutableStateFlow(UsuarioForm())
-    val form: StateFlow<UsuarioForm> = _form
+    var errorNombre by mutableStateOf("")
+    var errorCorreo by mutableStateOf("")
+    var errorTerminos by mutableStateOf("")
 
-    private val _errors = MutableStateFlow(
-        UsuarioFormError(
-            nombre = "El nombre es obligatorio",
-            correo = "El correo es obligatorio",
-            edad = "La edad es obligatoria",
-            terminos = "Debes aceptar los términos"
-        )
-    )
-    val errors: StateFlow<UsuarioFormError> = _errors
+    fun validarFormulario(): Boolean {
+        var esValido = true
 
-    fun onNombreChange(value: String) {
-        _form.value = _form.value.copy(nombre = value)
-        validate()
+        // Validar nombre
+        if (nombre.isBlank()) {
+            errorNombre = "El nombre es obligatorio"
+            esValido = false
+        } else {
+            errorNombre = ""
+        }
+
+        // Validar correo
+        if (correo.isBlank()) {
+            errorCorreo = "El correo es obligatorio"
+            esValido = false
+        } else if (!correo.contains("@") || !correo.contains(".")) {
+            errorCorreo = "Correo inválido"
+            esValido = false
+        } else {
+            errorCorreo = ""
+        }
+
+        // Validar términos
+        if (!aceptaTerminos) {
+            errorTerminos = "Debes aceptar los términos"
+            esValido = false
+        } else {
+            errorTerminos = ""
+        }
+
+        return esValido
     }
 
-    fun onCorreoChange(value: String) {
-        _form.value = _form.value.copy(correo = value)
-        validate()
-    }
-
-    fun onEdadChange(value: Int?) {
-        _form.value = _form.value.copy(edad = value)
-        validate()
-    }
-
-    fun onAceptaTerminosChange(value: Boolean) {
-        _form.value = _form.value.copy(aceptaTerminos = value)
-        validate()
-    }
-
-    fun onQuiereNotificacionesChange(value: Boolean) {
-        _form.value = _form.value.copy(quiereNotificaciones = value)
-    }
-
-    fun isFormValid(errors: UsuarioFormError): Boolean {
-        Log.d(TAG, "in isFormValid")
-        Log.d(TAG, "errors.nombre: ${errors.nombre}")
-        Log.d(TAG, "errors.correo: ${errors.correo}")
-        Log.d(TAG, "errors.edad: ${errors.edad}")
-        Log.d(TAG, "errors.terminos: ${errors.terminos}")
-        return errors.nombre == null && errors.correo == null && errors.edad == null && errors.terminos == null
-    }
-
-    private fun validate() {
-        val f = _form.value
-        _errors.value = UsuarioFormError(
-            nombre = if (f.nombre.isBlank()) "El nombre es obligatorio" else null,
-            correo = if (!f.correo.matches(Regex("^[\\w.-]+@[\\w.-]+\\.\\w+$"))) "Correo inválido" else null,
-            edad = if (f.edad == null || f.edad !in 18..99) "Edad entre 18 y 99" else null,
-            terminos = if (!f.aceptaTerminos) "Debes aceptar los términos" else null
-        )
+    fun limpiarFormulario() {
+        nombre = ""
+        correo = ""
+        aceptaTerminos = false
+        errorNombre = ""
+        errorCorreo = ""
+        errorTerminos = ""
     }
 }
