@@ -38,10 +38,11 @@ fun PagoScreen(navController: NavController) {
                 ) {
                     Text(
                         "No hay usuarios registrados",
-                        style = MaterialTheme.typography.bodyLarge
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Button(onClick = { navController.navigate("registro") }) {
+                    Button(onClick = { navController.navigate("RegistroScreen") }) {
                         Text("Registrar Primer Usuario")
                     }
                 }

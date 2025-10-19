@@ -28,11 +28,10 @@ object UsuarioRepository {
             telefono = telefono,//
             correo = correo,//
             saldo = saldo, //
-            faceId = faceId //
+            faceId = faceId  //
         )
         _usuarios = _usuarios + usuario
         return usuario
     }
 
-    fun obtenerUsuarios(): List<Usuario> = usuarios
 }

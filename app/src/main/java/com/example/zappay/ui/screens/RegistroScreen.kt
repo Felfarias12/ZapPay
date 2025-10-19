@@ -2,9 +2,11 @@ package com.example.zappay.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -24,7 +26,8 @@ fun RegistroScreen(navController: NavController) {
         Text(
             "Registro de Usuario",
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(bottom = 24.dp)
+            modifier = Modifier.padding(bottom = 24.dp),
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         // Campo Nombre
@@ -84,7 +87,8 @@ fun RegistroScreen(navController: NavController) {
             )
             Text(
                 "Acepto los términos y condiciones",
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier.padding(start = 5.dp),
+                color = MaterialTheme.colorScheme.onBackground
             )
         }
 
@@ -149,7 +153,7 @@ fun RegistroScreen(navController: NavController) {
                     Button(
                         onClick = {
                             mostrarConfirmacion = false
-                            navController.navigate("camara")
+                            navController.navigate("CamaraFotos")
                         }
                     ) {
                         Text("Configurar Rostro")
@@ -160,7 +164,7 @@ fun RegistroScreen(navController: NavController) {
                         onClick = {
                             mostrarConfirmacion = false
                             viewModel.limpiarFormulario()
-                            navController.navigate("inicio")
+                            navController.navigate("InicioScreen")
                         }
                     ) {
                         Text("Más Tarde")

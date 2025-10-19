@@ -72,7 +72,7 @@ fun InicioScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { navController.navigate("ListaUsuarioScreen") },
+            onClick = { navController.navigate("ListaUsuariosScreen") },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Ver Usuarios")

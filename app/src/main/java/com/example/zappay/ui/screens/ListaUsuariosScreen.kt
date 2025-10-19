@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +25,8 @@ fun ListaUsuariosScreen(navController: NavController) {
         Text(
             "Usuarios Registrados",
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier.padding(bottom = 16.dp),
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         if (usuarios.isEmpty()) {
@@ -35,10 +37,11 @@ fun ListaUsuariosScreen(navController: NavController) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         "No hay usuarios registrados",
-                        style = MaterialTheme.typography.bodyLarge
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = { navController.navigate("registro") }) {
+                    Button(onClick = { navController.navigate("RegistroScreen") }) {
                         Text("Registrar Usuario")
                     }
                 }
@@ -55,7 +58,8 @@ fun ListaUsuariosScreen(navController: NavController) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(
                                 "${usuario.nombre} ${usuario.apellido}",
-                                style = MaterialTheme.typography.titleMedium
+                                style = MaterialTheme.typography.titleMedium,
+                                color = MaterialTheme.colorScheme.onBackground
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text("Correo: ${usuario.correo}")
@@ -65,15 +69,17 @@ fun ListaUsuariosScreen(navController: NavController) {
                     }
                 }
             }
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = { navController.popBackStack() },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Volver al Inicio")
+
+            }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = { navController.popBackStack() },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Volver al Inicio")
-        }
     }
 }
