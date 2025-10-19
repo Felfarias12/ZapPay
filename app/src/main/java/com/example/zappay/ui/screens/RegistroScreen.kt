@@ -126,8 +126,8 @@ fun RegistroScreen(navController: NavController) {
         Button(
             onClick = {
                 // Esto debe llevarte al inicio
-                navController.navigate("inicio") {
-                    popUpTo("inicio") { inclusive = true }
+                navController.navigate("InicioScreen") {
+                    popUpTo("InicioScreen") { inclusive = true }
                 }
             },
             modifier = Modifier.fillMaxWidth(),
@@ -143,7 +143,7 @@ fun RegistroScreen(navController: NavController) {
         if (mostrarConfirmacion) {
             AlertDialog(
                 onDismissRequest = { mostrarConfirmacion = false },
-                title = { Text("✅ Registro Exitoso") },
+                title = { Text("Registro Exitoso") },
                 text = { Text("Usuario registrado correctamente. ¿Quieres configurar el reconocimiento facial ahora?") },
                 confirmButton = {
                     Button(

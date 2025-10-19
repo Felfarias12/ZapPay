@@ -11,10 +11,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.zappay.repository.UsuarioRepository
 
 @Composable
-fun AgregarUsuarios() {
+fun AgregarUsuarios(navController: NavController) {
     var nombre by remember { mutableStateOf("") }
     var apellido by remember { mutableStateOf("") }
     var nacionalidad by remember { mutableStateOf("") }
