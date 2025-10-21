@@ -6,7 +6,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -75,6 +74,73 @@ fun RegistroScreen(navController: NavController) {
         }
 
         Spacer(modifier = Modifier.height(16.dp))
+        // Campo edad
+        OutlinedTextField(
+            value = viewModel.edad,
+            onValueChange = { viewModel.edad = it },
+            label = { Text("Edad") },
+            modifier = Modifier.fillMaxWidth(),
+            isError = viewModel.errorEdad.isNotBlank(),
+            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                keyboardType = KeyboardType.Number
+            )
+        )
+
+        if (viewModel.errorEdad.isNotBlank()) {
+            Text(
+                viewModel.errorEdad,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        //Campo contraseña
+        OutlinedTextField(
+            value = viewModel.password,
+            onValueChange = { viewModel.password = it },
+            label = { Text("Contraseña") },
+            modifier = Modifier.fillMaxWidth(),
+            isError = viewModel.errorPassword.isNotBlank(),
+            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                keyboardType = KeyboardType.Text
+            )
+        )
+
+        if (viewModel.errorPassword.isNotBlank()) {
+            Text(
+                viewModel.errorPassword,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        //campo rut
+
+        OutlinedTextField(
+            value = viewModel.rut,
+            onValueChange = { viewModel.rut = it },
+            label = { Text("Rut(Con punto y guion)") },
+            modifier = Modifier.fillMaxWidth(),
+            isError = viewModel.errorRut.isNotBlank(),
+            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                keyboardType = KeyboardType.Text
+            )
+        )
+
+        if (viewModel.errorRut.isNotBlank()) {
+            Text(
+                viewModel.errorRut,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+            )
+        }
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Checkbox Términos
         Row(
@@ -112,7 +178,7 @@ fun RegistroScreen(navController: NavController) {
                         nombre = viewModel.nombre,
                         apellido = "", // Podemos dividir el nombre si quieres
                         nacionalidad = "No especificada",
-                        telefono = "No especificado",
+                        rut = viewModel.rut,
                         correo = viewModel.correo,
                         saldo = 1000.0 // Saldo inicial para pruebas
                     )
@@ -126,7 +192,7 @@ fun RegistroScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón Volver - ESTE SÍ DEBE FUNCIONAR
+        // Botón Volver
         Button(
             onClick = {
                 // Esto debe llevarte al inicio
@@ -173,4 +239,7 @@ fun RegistroScreen(navController: NavController) {
             )
         }
     }
+
 }
+
+

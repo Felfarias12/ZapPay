@@ -14,7 +14,8 @@ import com.example.zappay.ui.screens.RegistroScreen
 @Composable
 fun Navegacion() {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = "inicioscreen") {
+    NavHost(navController, startDestination = "PaginaInicio") {
+        composable("PaginaInicio") { PaginaInicio(navController) }
         composable("inicioscreen") { InicioScreen(navController) }
         composable("RegistroScreen") { RegistroScreen(navController) }
         composable("CamaraFotos") { CamaraFotos(navController) }

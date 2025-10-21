@@ -36,22 +36,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-
-
-@Composable
-fun ZapPayApp() {
-    val navController = rememberNavController()
-
-    NavHost(
-        navController = navController,
-        startDestination = "inicio"
-    ) {
-        composable("inicio") { InicioScreen(navController) }
-        composable("registro") { RegistroScreen(navController) }
-        composable("pago") { PagoScreen(navController) }
-        composable("camara") { CamaraScreen(navController) }
-        composable("usuarios") { ListaUsuariosScreen(navController) }
-    }
 }
-}
+
+

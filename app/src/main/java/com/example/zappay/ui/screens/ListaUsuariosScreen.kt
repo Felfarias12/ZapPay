@@ -63,7 +63,7 @@ fun ListaUsuariosScreen(navController: NavController) {
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text("Correo: ${usuario.correo}")
-                            Text("Teléfono: ${usuario.telefono}")
+                            Text("Rut: ${usuario.rut}")
                             Text("Saldo: $${usuario.saldo}")
                         }
                     }

@@ -15,23 +15,24 @@ object UsuarioRepository {
         nombre: String,
         apellido: String,
         nacionalidad: String,
-        telefono: String,
+        rut: String,
         correo: String,
-        saldo: Double = 0.0, // Cambiado a Double
+        saldo: Double = 0.0,
         faceId: String = ""
-    ): Usuario {
+    ): Usuario? {
+
         val usuario = Usuario(
             id = nextId++,
             nombre = nombre,
             apellido = apellido,
             nacionalidad = nacionalidad,
-            telefono = telefono,//
-            correo = correo,//
-            saldo = saldo, //
-            faceId = faceId  //
+            rut = rut,
+            correo = correo,
+            saldo = saldo,
+            faceId = faceId
         )
+
         _usuarios = _usuarios + usuario
         return usuario
     }
-
 }

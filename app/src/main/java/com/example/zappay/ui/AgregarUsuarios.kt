@@ -19,7 +19,7 @@ fun AgregarUsuarios(navController: NavController) {
     var nombre by remember { mutableStateOf("") }
     var apellido by remember { mutableStateOf("") }
     var nacionalidad by remember { mutableStateOf("") }
-    var telefono by remember { mutableStateOf("") }
+    var rut by remember { mutableStateOf("") }
     var correo by remember { mutableStateOf("") }
     val usuarios by remember { mutableStateOf(UsuarioRepository.usuarios) }
 
@@ -62,9 +62,9 @@ fun AgregarUsuarios(navController: NavController) {
         Spacer(modifier = Modifier.height(8.dp))
 
         OutlinedTextField(
-            value = telefono,
-            onValueChange = { telefono = it },
-            label = { Text("Teléfono") },
+            value = rut,
+            onValueChange = { rut = it },
+            label = { Text("Rut") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -83,7 +83,7 @@ fun AgregarUsuarios(navController: NavController) {
                         nombre = nombre,
                         apellido = apellido,
                         nacionalidad = nacionalidad,
-                        telefono = telefono,
+                        rut = rut,
                         correo = correo
                         // saldo y faceId
                     )
@@ -91,7 +91,7 @@ fun AgregarUsuarios(navController: NavController) {
                     nombre = ""
                     apellido = ""
                     nacionalidad = ""
-                    telefono = ""
+                    rut = ""
                     correo = ""
                 }
             },
