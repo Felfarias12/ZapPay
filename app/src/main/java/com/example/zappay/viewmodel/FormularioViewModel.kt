@@ -4,7 +4,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.zappay.model.MensajesError
 import com.example.zappay.repository.FormularioRepository
 import com.example.zappay.repository.UsuarioRepository
 

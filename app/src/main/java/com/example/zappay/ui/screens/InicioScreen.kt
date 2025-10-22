@@ -36,7 +36,6 @@ fun InicioScreen(navController: NavController) {
             color = MaterialTheme.colorScheme.primary
         )
 
-        // CORRECCIÓN: Cambiar Mododer por Modifier
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(

@@ -3,6 +3,8 @@ package com.example.zappay.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -32,6 +34,9 @@ fun PagoScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .padding(24.dp)
+            .verticalScroll(rememberScrollState())
+
+
     ) {
         Text(
             "Realizar Pago Facial",
@@ -139,13 +144,7 @@ fun PagoScreen(navController: NavController) {
         }
 
 //transferencia
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp)
 
-
-    ) {
         Text(
             "Transferencia de Fondos",
             style = MaterialTheme.typography.headlineMedium,
@@ -153,7 +152,7 @@ fun PagoScreen(navController: NavController) {
             color=(MaterialTheme.colorScheme.onSurface)
         )
 
-        if (contactos.size < 2) {
+        if (contactos.isEmpty()) {
             Text("Debe haber al menos 2 usuarios registrados para transferir fondos.",
                     color=(MaterialTheme.colorScheme.onSurface))
 
@@ -268,4 +267,4 @@ fun PagoScreen(navController: NavController) {
         }
     }
 }
-}
+

@@ -18,15 +18,13 @@ import com.example.zappay.model.Contacto
 import com.example.zappay.viewmodel.ContactosViewModel
 
 @Composable
-fun ContactosScreen(
-    navController: NavController,
+fun ContactosScreen(navController: NavController,
     viewModel: ContactosViewModel = viewModel() // Use standard ViewModel injection
 ) {
     // Form fields state (Local UI State)
     var nombre by remember { mutableStateOf("") }
     var rut by remember { mutableStateOf("") }
     var correo by remember { mutableStateOf("") }
-    var nacionalidad by remember { mutableStateOf("") } // Not used in the repository function but kept for form consistency
 
     // Contactos list state (Observed from ViewModel)
     val contactos = viewModel.contactos
@@ -57,7 +55,6 @@ fun ContactosScreen(
                 OutlinedTextField(value = correo, onValueChange = { correo = it }, label = { Text("Correo") }, modifier = Modifier.fillMaxWidth())
                 Spacer(modifier = Modifier.height(8.dp))
                 // Retain nacionalidad field even if not passed to the simple repository function
-                OutlinedTextField(value = nacionalidad, onValueChange = { nacionalidad = it }, label = { Text("Nacionalidad") }, modifier = Modifier.fillMaxWidth())
 
                 Button(
                     onClick = {
@@ -67,7 +64,6 @@ fun ContactosScreen(
                             nombre = ""
                             rut = ""
                             correo = ""
-                            nacionalidad = ""
                         }
                     },
                     modifier = Modifier

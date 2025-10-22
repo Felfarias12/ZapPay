@@ -1,6 +1,11 @@
 package com.example.zappay.ui.screens
 
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -21,6 +26,8 @@ fun RegistroScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .padding(24.dp)
+            .verticalScroll(rememberScrollState())
+
     ) {
         Text(
             "Registro de Usuario",
@@ -36,7 +43,7 @@ fun RegistroScreen(navController: NavController) {
             label = { Text("Nombre completo") },
             modifier = Modifier.fillMaxWidth(),
             isError = viewModel.errorNombre.isNotBlank(),
-            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+            keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text
             )
         )
@@ -59,7 +66,7 @@ fun RegistroScreen(navController: NavController) {
             label = { Text("Correo electrónico") },
             modifier = Modifier.fillMaxWidth(),
             isError = viewModel.errorCorreo.isNotBlank(),
-            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+            keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email
             )
         )
@@ -81,7 +88,7 @@ fun RegistroScreen(navController: NavController) {
             label = { Text("Edad") },
             modifier = Modifier.fillMaxWidth(),
             isError = viewModel.errorEdad.isNotBlank(),
-            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+            keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number
             )
         )
@@ -104,7 +111,7 @@ fun RegistroScreen(navController: NavController) {
             label = { Text("Contraseña") },
             modifier = Modifier.fillMaxWidth(),
             isError = viewModel.errorPassword.isNotBlank(),
-            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+            keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text
             )
         )
@@ -127,7 +134,7 @@ fun RegistroScreen(navController: NavController) {
             label = { Text("Rut(Con punto y guion)") },
             modifier = Modifier.fillMaxWidth(),
             isError = viewModel.errorRut.isNotBlank(),
-            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+            keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text
             )
         )
