@@ -1,35 +1,35 @@
 // En FormularioRepository.kt
 package com.example.zappay.repository
 
-import com.example.zappay.model.FormularioModel
-import com.example.zappay.model.MensajesError
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import com.example.zappay.model.Contacto
 
-object FormularioRepository {  // Cambia class por object
 
-    private var formulario = FormularioModel()
-    private var errores = MensajesError()
+object FormularioRepository {
+    private var _contactos by mutableStateOf(listOf<Contacto>())
 
-    fun getFormulario(): FormularioModel = formulario
-    fun getMensajesError(): MensajesError = errores
+    // ⭐️ Change Contactos to Contacto
+    val contactos: List<Contacto> get() = _contactos
+    private var nextId = 1
 
-    fun cambiarNombre(nuevoNombre: String) {
-        formulario.nombre = nuevoNombre //
-    }
+    fun crearNuevoContacto (
+        nombre: String,
+        rut: String,
+        correo: String,
+        saldo: Double = 0.0,
+    ): Contacto? { // ⭐️ Change Usuario? to Contacto? to match return
+        // ... rest of the function ...
+        val contacto = Contacto(
+            id = nextId++,
+            nombre = nombre,
+            rut = rut,
+            correo = correo,
+            saldo = saldo
+        )
 
-    fun validacionNombre(): Boolean {
-        return formulario.nombre.isNotBlank()  //
-    }
-
-    fun validacionCorreo(): Boolean {
-        return formulario.correo.matches(Regex("^[\\w.-]+@[\\w.-]+\\.\\w+$"))
-    }
-
-    fun validacionEdad(): Boolean {
-        val edadInt = formulario.edad.toIntOrNull()
-        return edadInt != null && edadInt in 0..120
-    }
-
-    fun validacionTerminos(): Boolean {
-        return formulario.terminos
+        _contactos = _contactos + contacto
+        return contacto
     }
 }

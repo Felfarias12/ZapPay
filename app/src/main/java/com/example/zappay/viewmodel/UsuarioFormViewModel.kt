@@ -95,7 +95,6 @@ class UsuarioFormViewModel : ViewModel() {
     fun limpiarFormulario() {
         nombre = ""
         correo = ""
-
         aceptaTerminos = false
         errorNombre = ""
         errorCorreo = ""

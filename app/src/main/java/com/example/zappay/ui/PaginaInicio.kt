@@ -49,6 +49,13 @@ fun PaginaInicio(navController: NavController){
         ) {
             Text("Registrar Usuario")
         }
+
+        Button(
+            onClick = { navController.navigate("Login") },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(" Inicio Sesion")
+        }
     }
 }
 

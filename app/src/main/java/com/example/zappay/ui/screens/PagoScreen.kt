@@ -1,14 +1,17 @@
 package com.example.zappay.ui.screens
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.zappay.model.Usuario
+import com.example.zappay.repository.FormularioRepository.contactos
 import com.example.zappay.repository.UsuarioRepository
 
 @Composable
@@ -140,17 +143,22 @@ fun PagoScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .padding(24.dp)
+
+
     ) {
         Text(
             "Transferencia de Fondos",
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(bottom = 24.dp)
+            modifier = Modifier.padding(bottom = 24.dp),
+            color=(MaterialTheme.colorScheme.onSurface)
         )
 
-        if (usuarios.size < 2) {
-            Text("Debe haber al menos 2 usuarios registrados para transferir fondos.")
-            Button(onClick = { navController.navigate("RegistroScreen") }) {
-                Text("Registrar otro usuario")
+        if (contactos.size < 2) {
+            Text("Debe haber al menos 2 usuarios registrados para transferir fondos.",
+                    color=(MaterialTheme.colorScheme.onSurface))
+
+            Button(onClick = { navController.navigate("AgregarUsuarios") }) {
+                Text("Agregar contacto")
             }
             return@Column
         }
@@ -196,6 +204,7 @@ fun PagoScreen(navController: NavController) {
         Button(
             onClick = {
                 val montoDouble = montoT.toDoubleOrNull() ?: 0.0
+
                 if (usuarioActual != null && destinatarioSeleccionado != null) {
                     val exito = usuarioActual.transferirFondos(destinatarioSeleccionado!!, montoDouble)
                     mensaje = if (exito) {
@@ -214,12 +223,13 @@ fun PagoScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onBackground)
             ) {
                 Text(
                     mensaje,
                     modifier = Modifier.padding(16.dp),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    color= MaterialTheme.colorScheme.onSurface
                 )
             }
         }

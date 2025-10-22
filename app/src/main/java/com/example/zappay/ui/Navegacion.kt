@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.zappay.ui.screens.CamaraScreen
+import com.example.zappay.ui.screens.ContactosScreen
 import com.example.zappay.ui.screens.InicioScreen
 import com.example.zappay.ui.screens.ListaUsuariosScreen
 import com.example.zappay.ui.screens.PagoScreen
@@ -17,9 +17,14 @@ fun Navegacion() {
     NavHost(navController, startDestination = "PaginaInicio") {
         composable("PaginaInicio") { PaginaInicio(navController) }
         composable("inicioscreen") { InicioScreen(navController) }
+        composable("Login") { Login(navController) }
         composable("RegistroScreen") { RegistroScreen(navController) }
         composable("CamaraFotos") { CamaraFotos(navController) }
         composable("PagoScreen") { PagoScreen(navController) }
         composable("ListaUsuariosScreen") { ListaUsuariosScreen(navController) }
+        composable("AgregarUsuarios") { ContactosScreen(navController) }
+
     }
 }
+
+

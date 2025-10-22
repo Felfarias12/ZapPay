@@ -44,6 +44,12 @@ fun ListaUsuariosScreen(navController: NavController) {
                     Button(onClick = { navController.navigate("RegistroScreen") }) {
                         Text("Registrar Usuario")
                     }
+                    TextButton(
+                        onClick = { navController.popBackStack() },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Volver al inicio")
+                    }
                 }
             }
         } else {
@@ -66,20 +72,22 @@ fun ListaUsuariosScreen(navController: NavController) {
                             Text("Rut: ${usuario.rut}")
                             Text("Saldo: $${usuario.saldo}")
                         }
+
                     }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    TextButton(
+                        onClick = { navController.popBackStack() },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Volver al inicio")
+                    }
+
                 }
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = { navController.popBackStack() },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Volver al Inicio")
 
             }
+
+
+
         }
-
-
     }
 }

@@ -230,7 +230,7 @@ fun RegistroScreen(navController: NavController) {
                         onClick = {
                             mostrarConfirmacion = false
                             viewModel.limpiarFormulario()
-                            navController.navigate("InicioScreen")
+                            navController.navigate("PaginaInicio")
                         }
                     ) {
                         Text("Más Tarde")

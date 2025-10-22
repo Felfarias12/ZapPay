@@ -56,10 +56,10 @@ fun InicioScreen(navController: NavController) {
         ) {
             // Botones de navegación
             Button(
-                onClick = { navController.navigate("registroscreen") },
+                onClick = { navController.navigate("AgregarUsuarios") },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Registrar Usuario")
+                Text("Agregar Contacto")
             }
 
             Spacer(modifier = Modifier.height(16.dp))
