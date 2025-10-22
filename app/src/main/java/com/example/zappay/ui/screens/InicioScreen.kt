@@ -90,5 +90,25 @@ fun InicioScreen(navController: NavController) {
             ) {
                 Text("Configurar Reconocimiento Facial")
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Botón Volver
+            Button(
+                onClick = {
+                    // Esto lleva a la pantalla principal
+                    navController.navigate("PaginaInicio") {
+                        popUpTo("PaginaInicio") { inclusive = true }
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+            ) {
+                Text("Cerrar Sesion")
+            }
+
         }
     }

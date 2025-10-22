@@ -216,20 +216,6 @@ fun PagoScreen(navController: NavController) {
             Text("Transferir Fondos")
         }
 
-        if (mensaje.isNotBlank()) {
-            Spacer(modifier = Modifier.height(16.dp))
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onBackground)
-            ) {
-                Text(
-                    mensaje,
-                    modifier = Modifier.padding(16.dp),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color= MaterialTheme.colorScheme.onSurface
-                )
-            }
-        }
 
         Spacer(modifier = Modifier.height(12.dp))
 
