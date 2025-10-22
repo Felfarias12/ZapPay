@@ -19,14 +19,11 @@ import com.example.zappay.viewmodel.ContactosViewModel
 
 @Composable
 fun ContactosScreen(navController: NavController,
-    viewModel: ContactosViewModel = viewModel() // Use standard ViewModel injection
+    viewModel: ContactosViewModel = viewModel()
 ) {
-    // Form fields state (Local UI State)
     var nombre by remember { mutableStateOf("") }
     var rut by remember { mutableStateOf("") }
     var correo by remember { mutableStateOf("") }
-
-    // Contactos list state (Observed from ViewModel)
     val contactos = viewModel.contactos
 
     Column(
@@ -34,7 +31,6 @@ fun ContactosScreen(navController: NavController,
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // --- 1. Form Section ---
         Card(
             modifier = Modifier.fillMaxWidth(),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
@@ -54,13 +50,11 @@ fun ContactosScreen(navController: NavController,
                 Spacer(modifier = Modifier.height(8.dp))
                 OutlinedTextField(value = correo, onValueChange = { correo = it }, label = { Text("Correo") }, modifier = Modifier.fillMaxWidth())
                 Spacer(modifier = Modifier.height(8.dp))
-                // Retain nacionalidad field even if not passed to the simple repository function
 
                 Button(
                     onClick = {
                         if (nombre.isNotBlank() && rut.isNotBlank() && correo.isNotBlank()) {
                             viewModel.addContacto(nombre, rut, correo)
-                            // Clear fields
                             nombre = ""
                             rut = ""
                             correo = ""
@@ -80,7 +74,6 @@ fun ContactosScreen(navController: NavController,
         Divider()
         Spacer(modifier = Modifier.height(16.dp))
 
-        // --- 2. List Section ---
         Text(
             "Contactos Registrados (${contactos.size})",
             style = MaterialTheme.typography.titleLarge,
@@ -105,7 +98,6 @@ fun ContactosScreen(navController: NavController,
     }
 }
 
-// --- Reusable Component for List Item ---
 
 @Composable
 fun ContactoItemCard(contacto: Contacto) {
@@ -121,13 +113,7 @@ fun ContactoItemCard(contacto: Contacto) {
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Default.Person,
-                contentDescription = "User Icon",
-                modifier = Modifier.size(32.dp),
-                tint = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.width(16.dp))
+
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = contacto.nombre,
@@ -141,7 +127,7 @@ fun ContactoItemCard(contacto: Contacto) {
                 )
             }
             Text(
-                text = "Saldo: $$${"%.2f".format(contacto.saldo)}",
+                text = "Saldo: $${"%.2f".format(contacto.saldo)}",
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.secondary
             )

@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import com.example.zappay.model.Contacto
 
 
-object FormularioRepository {
+object ContactoRepository {
     private var _contactos by mutableStateOf(listOf<Contacto>())
 
     val contactos: List<Contacto> get() = _contactos

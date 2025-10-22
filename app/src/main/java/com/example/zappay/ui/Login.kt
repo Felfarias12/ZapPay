@@ -26,7 +26,6 @@ import com.example.zappay.viewmodel.FormularioViewModel
 @Composable
 fun Login(navController: NavController) {
     val viewModel = remember { FormularioViewModel() }
-    var mostrarConfirmacion by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier

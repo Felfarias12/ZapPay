@@ -1,7 +1,6 @@
 package com.example.zappay.ui.screens
 
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -9,11 +8,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.zappay.model.Usuario
-import com.example.zappay.repository.FormularioRepository.contactos
+import com.example.zappay.repository.ContactoRepository.contactos
 import com.example.zappay.repository.UsuarioRepository
 
 @Composable
