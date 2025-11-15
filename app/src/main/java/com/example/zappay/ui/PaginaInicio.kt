@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,6 +28,7 @@ fun PaginaInicio(navController: NavController){
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
         Text(
             text = "ZapPay",
             style = MaterialTheme.typography.headlineLarge,
@@ -42,20 +44,25 @@ fun PaginaInicio(navController: NavController){
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Button(
+            onClick = { navController.navigate("Login") },
+            modifier = Modifier.width(250.dp)
+        ) {
+            Text(" Inicio Sesion")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         Button(
             onClick = { navController.navigate("registroscreen") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.width(250.dp)
         ) {
             Text("Registrar Usuario")
         }
 
-        Button(
-            onClick = { navController.navigate("Login") },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(" Inicio Sesion")
-        }
+
     }
 }
 

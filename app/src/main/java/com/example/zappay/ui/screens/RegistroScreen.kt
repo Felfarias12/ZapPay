@@ -203,8 +203,8 @@ fun RegistroScreen(navController: NavController) {
         Button(
             onClick = {
                 // Esto debe llevarte al inicio
-                navController.navigate("InicioScreen") {
-                    popUpTo("InicioScreen") { inclusive = true }
+                navController.navigate("PaginaInicio") {
+                    popUpTo("PaginaInicio") { inclusive = true }
                 }
             },
             modifier = Modifier.fillMaxWidth(),
