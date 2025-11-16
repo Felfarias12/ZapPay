@@ -45,7 +45,7 @@ fun InicioScreen(navController: NavController) {
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(modifier = Modifier.height(40.dp))
         Column(
             modifier = Modifier
                 .fillMaxSize()

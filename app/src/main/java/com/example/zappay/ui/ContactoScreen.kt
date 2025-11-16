@@ -15,15 +15,18 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.zappay.model.Contacto
+import com.example.zappay.viewmodel.ContactoFormViewModel
 import com.example.zappay.viewmodel.ContactosViewModel
+
+
 
 @Composable
 fun ContactosScreen(navController: NavController,
-    viewModel: ContactosViewModel = viewModel()
+    viewModel: ContactosViewModel = viewModel(),
+    formViewModel: ContactoFormViewModel = viewModel()
 ) {
-    var nombre by remember { mutableStateOf("") }
-    var rut by remember { mutableStateOf("") }
-    var correo by remember { mutableStateOf("") }
+
+
     val contactos = viewModel.contactos
 
     Column(
@@ -44,26 +47,53 @@ fun ContactosScreen(navController: NavController,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
 
-                OutlinedTextField(value = nombre, onValueChange = { nombre = it }, label = { Text("Nombre") }, modifier = Modifier.fillMaxWidth())
+                OutlinedTextField(
+                    value = formViewModel.nombre,
+                    onValueChange = { formViewModel.nombre = it },
+                    label = { Text("Nombre") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                if (formViewModel.errorNombre.isNotEmpty()) {
+                    Text(formViewModel.errorNombre, color = MaterialTheme.colorScheme.error)
+                }
                 Spacer(modifier = Modifier.height(8.dp))
-                OutlinedTextField(value = rut, onValueChange = { rut = it }, label = { Text("Rut") }, modifier = Modifier.fillMaxWidth())
+                OutlinedTextField(
+                    value = formViewModel.rut,
+                    onValueChange = { formViewModel.rut = it },
+                    label = { Text("Rut") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                if (formViewModel.errorRut.isNotEmpty()) {
+                    Text(formViewModel.errorRut, color = MaterialTheme.colorScheme.error)
+                }
                 Spacer(modifier = Modifier.height(8.dp))
-                OutlinedTextField(value = correo, onValueChange = { correo = it }, label = { Text("Correo") }, modifier = Modifier.fillMaxWidth())
+                OutlinedTextField(
+                    value = formViewModel.correo,
+                    onValueChange = { formViewModel.correo = it },
+                    label = { Text("Correo") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                if (formViewModel.errorCorreo.isNotEmpty()) {
+                    Text(formViewModel.errorCorreo, color = MaterialTheme.colorScheme.error)
+                }
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(
                     onClick = {
-                        if (nombre.isNotBlank() && rut.isNotBlank() && correo.isNotBlank()) {
-                            viewModel.addContacto(nombre, rut, correo)
-                            nombre = ""
-                            rut = ""
-                            correo = ""
+                        if (formViewModel.ValidarContacto()) {
+                            viewModel.addContacto(
+                                formViewModel.nombre,
+                                formViewModel.rut,
+                                formViewModel.correo
+                            )
+                            formViewModel.nombre = ""
+                            formViewModel.rut = ""
+                            formViewModel.correo = ""
                         }
                     },
                     modifier = Modifier
                         .padding(top = 16.dp)
-                        .fillMaxWidth(),
-                    enabled = nombre.isNotBlank() && rut.isNotBlank() && correo.isNotBlank()
+                        .fillMaxWidth()
                 ) {
                     Text("Guardar Contacto")
                 }
