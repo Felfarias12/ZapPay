@@ -75,6 +75,7 @@ class UsuarioFormViewModel : ViewModel() {
 
 
 
+
         //validar rut
         if (rut.isBlank()){
             errorRut= "El rut es obligatorio"
