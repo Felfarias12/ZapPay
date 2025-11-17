@@ -60,12 +60,21 @@ class UsuarioFormViewModel : ViewModel() {
             errorEdad= ""
         }
         //validad contraseña
-        if (password.isBlank()){
-            errorPassword= "la contraseña es obligatoria"
-            esValido=false
-        }else{
-            errorPassword=""
+        if (password.isBlank()) {
+            errorPassword = "La contraseña es obligatoria"
+            esValido = false
+        } else if (password.length < 8) {
+            errorPassword = "La contraseña debe tener al menos 8 caracteres"
+            esValido = false
+        } else if (!password.any { it.isUpperCase() }) {
+            errorPassword = "La contraseña debe tener al menos una mayúscula"
+            esValido = false
+        } else {
+            errorPassword = ""
         }
+
+
+
         //validar rut
         if (rut.isBlank()){
             errorRut= "El rut es obligatorio"
