@@ -7,43 +7,34 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
+// Eliminamos los colores duplicados y solo dejamos estos:
 private val DarkColorScheme = darkColorScheme(
-    primary = BrightBlue,           // Botones y elementos principales
-    secondary = BrightGreen,        // Acentos o indicadores
-    tertiary = PinkAccent,          // Color auxiliar
-    background = Black,             // Fondo general de la app
-    surface = White,           // Tarjetas, diálogos, barras
-    onPrimary = White,              // Texto en botones
-    onSecondary = White,           // Texto en chips o acentos
-    onTertiary = White,
-    onBackground = Color.White,           // Texto principal sobre fondo negro
-    onSurface = White               // Texto sobre tarjetas
-
+    primary = Color(0xFF00C853),           // Verde principal
+    secondary = Color(0xFF2979FF),         // Azul secundario
+    tertiary = Color(0xFFD0BCFF),          // Morado terciario
+    background = Color(0xFF121212),        // Fondo oscuro
+    surface = Color(0xFF1E1E1E),           // Surface oscuro
+    onPrimary = Color.White,
+    onSecondary = Color.White,
+    onTertiary = Color.Black,
+    onBackground = Color.White,
+    onSurface = Color.White,
+    surfaceVariant = Color(0xFF2D2D2D)     // Variante de surface
 )
-
 
 private val LightColorScheme = lightColorScheme(
-    primary = Color(0xFF6200EE),
-    secondary = Color(0xFF03DAC6),
-    tertiary = Color(0xFF018786),
-    background = Color(0xFFFFFFFF),
-    surface = Color(0xFFF2F2F2),
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onTertiary = Color.White,
-    onBackground = Color.Black,
-    onSurface = Color.Black
-)
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+    primary = Color(0xFF00C853),           // Verde principal
+    secondary = Color(0xFF2979FF),         // Azul secundario
+    tertiary = Color(0xFF6650a4),          // Morado terciario
+    background = Color(0xFFF5F5F5),        // Fondo claro
+    surface = Color.White,                 // Surface claro
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-
+    onBackground = Color.Black,
+    onSurface = Color.Black,
+    surfaceVariant = Color(0xFFEEEEEE)     // Variante de surface
+)
 
 @Composable
 fun ZapPayTheme(
