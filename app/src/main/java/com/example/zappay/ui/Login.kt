@@ -17,19 +17,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.zappay.repository.UsuarioRepository
+import com.example.zappay.viewmodel.LoginViewModel
 import com.example.zappay.viewmodel.FormularioViewModel
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun Login(navController: NavController) {
-    val viewModel = remember { FormularioViewModel() }
+    val scope = rememberCoroutineScope()
+    val viewModel: LoginViewModel = remember { LoginViewModel() }
+
 
     Column(
         modifier = Modifier
@@ -91,16 +95,29 @@ fun Login(navController: NavController) {
 
         Button(
             onClick = {
-                if (viewModel.validarUsuario()) {
-                    navController.navigate("InicioScreen") {
-                        popUpTo("InicioScreen") { inclusive = true }
+                scope.launch {
+
+                    // 1) Primero CARGAMOS los usuarios desde la API
+                    viewModel.cargarUsuarios()
+
+                    // 2) Luego validamos
+                    if (viewModel.validarUsuario()) {
+                        navController.navigate("InicioScreen") {
+                            popUpTo("InicioScreen") { inclusive = true }
+                        }
+                    } else {
+                        // Puedes mostrar un mensaje usando un Snackbar o un estado
+                        println("Usuario o contraseña incorrectos")
                     }
                 }
-                      },
-            modifier = Modifier.width(250.dp).align(Alignment.CenterHorizontally)
+            },
+            modifier = Modifier
+                .width(250.dp)
+                .align(Alignment.CenterHorizontally)
         ) {
             Text("Iniciar Sesion")
         }
+
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -123,3 +140,5 @@ fun Login(navController: NavController) {
 
     }
 }
+
+

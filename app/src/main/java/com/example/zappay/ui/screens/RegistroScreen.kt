@@ -1,7 +1,5 @@
 package com.example.zappay.ui.screens
 
-import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,13 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.zappay.repository.UsuarioRepository
+import com.example.zappay.remote.RetrofitInstance
 import com.example.zappay.viewmodel.UsuarioFormViewModel
+import com.example.zappay.request.UsuarioRequest
+import kotlinx.coroutines.launch
 
 @Composable
+//Se agrego base de datos
 fun RegistroScreen(navController: NavController) {
     val viewModel = remember { UsuarioFormViewModel() }
     var mostrarConfirmacion by remember { mutableStateOf(false) }
+    val scope= rememberCoroutineScope()
+
 
     Column(
         modifier = Modifier
@@ -180,15 +183,19 @@ fun RegistroScreen(navController: NavController) {
         Button(
             onClick = {
                 if (viewModel.validarFormulario()) {
-                    // Registrar usuario
-                    UsuarioRepository.crearNuevoUsuario(
-                        nombre = viewModel.nombre,
-                        apellido = "", // Podemos dividir el nombre si quieres
-                        nacionalidad = "No especificada",
-                        rut = viewModel.rut,
-                        correo = viewModel.correo,
-                        saldo = 1000.0 // Saldo inicial para pruebas
-                    )
+
+                    scope.launch{
+                        // Registrar usuario
+                        val usuarioNuevo= UsuarioRequest(
+                            viewModel.nombre,
+                            viewModel.correo,
+                            viewModel.edad,
+                            viewModel.password,
+                            viewModel.rut,
+                            1000.0
+                        )
+                        RetrofitInstance.api.crearNuevoUsuario(usuarioNuevo)}
+
                     mostrarConfirmacion = true
                 }
             },
@@ -248,5 +255,8 @@ fun RegistroScreen(navController: NavController) {
     }
 
 }
+
+
+
 
 

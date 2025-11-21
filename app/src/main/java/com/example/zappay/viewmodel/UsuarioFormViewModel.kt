@@ -2,6 +2,8 @@ package com.example.zappay.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.zappay.repository.UsuarioRepository
@@ -15,13 +17,14 @@ class UsuarioFormViewModel : ViewModel() {
     var password by mutableStateOf("")
     var rut by mutableStateOf("")
     var aceptaTerminos by mutableStateOf(false)
-
+    var saldo by mutableStateOf("")
     var errorNombre by mutableStateOf("")
     var errorCorreo by mutableStateOf("")
     var errorEdad by mutableStateOf("")
     var errorPassword by mutableStateOf("")
     var errorRut by mutableStateOf("")
     var errorTerminos by mutableStateOf("")
+
 
     fun validarFormulario(): Boolean {
         var esValido = true

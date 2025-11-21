@@ -42,6 +42,11 @@ android {
 
 dependencies {
 
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
 
 
@@ -64,6 +69,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

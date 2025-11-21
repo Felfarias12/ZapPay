@@ -5,34 +5,36 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.example.zappay.model.Usuario
+import com.example.zappay.remote.RetrofitInstance
+import com.example.zappay.request.UsuarioRequest
+
 
 object UsuarioRepository {
     private var _usuarios by mutableStateOf(listOf<Usuario>())
     val usuarios: List<Usuario> get() = _usuarios
     private var nextId = 1
 
-    fun crearNuevoUsuario(
+    suspend fun crearNuevoUsuario(
         nombre: String,
-        apellido: String,
-        nacionalidad: String,
-        rut: String,
         correo: String,
-        saldo: Double = 0.0,
-        faceId: String = ""
-    ): Usuario? {
+        edad: String,
+        contraseña: String,
+        rut: String,
+        saldo: Double
+    ): Usuario {
 
-        val usuario = Usuario(
-            id = nextId++,
-            nombre = nombre,
-            apellido = apellido,
-            nacionalidad = nacionalidad,
-            rut = rut,
-            correo = correo,
-            saldo = saldo,
-            faceId = faceId
+        val request = UsuarioRequest(
+            Nombre = nombre,
+            Correo = correo,
+            Edad = edad,
+            Contrasenna = contraseña,
+            Rut = rut,
+            Saldo = saldo
         )
 
-        _usuarios = _usuarios + usuario
-        return usuario
+        return RetrofitInstance.api.crearNuevoUsuario(request)
     }
+
 }
+
+

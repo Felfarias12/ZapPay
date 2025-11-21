@@ -4,7 +4,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.zappay.model.Usuario
+import com.example.zappay.remote.RetrofitInstance
 import com.example.zappay.repository.UsuarioRepository
+import com.example.zappay.request.UsuarioRequest
+
+
 
 class FormularioViewModel : ViewModel() {
     var password by mutableStateOf("")
@@ -41,5 +46,6 @@ class FormularioViewModel : ViewModel() {
         }
         return esValido
     }
+
 
 }
