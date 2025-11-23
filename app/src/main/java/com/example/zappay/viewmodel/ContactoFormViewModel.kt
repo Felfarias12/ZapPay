@@ -11,6 +11,7 @@ class ContactoFormViewModel : ViewModel()  {
     var nombre by mutableStateOf("")
     var rut by mutableStateOf("")
     var correo by mutableStateOf("")
+    var saldo by mutableStateOf(0.0)
 
     var errorNombre by mutableStateOf("")
     var errorRut by mutableStateOf("")

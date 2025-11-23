@@ -21,9 +21,13 @@ fun PagoScreen(navController: NavController) {
     LaunchedEffect(Unit) {
         vm.cargarUsuarios()
     }
-
+    LaunchedEffect(Unit) {
+        vm.cargarContacto()
+    }
     val usuarios by vm.usuarios.collectAsState()
     val usuarioActual by vm.usuarioActual.collectAsState()
+    val contactos by vm.contactos.collectAsState()
+    val contactoActual by vm.contactoActual.collectAsState()
     val mensaje by vm.mensaje.collectAsState()
     val destinatario by vm.destinatario.collectAsState()
 
@@ -138,11 +142,11 @@ fun PagoScreen(navController: NavController) {
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
             ) {
-                usuarios.filter { it != usuarioActual }.forEach { usuario ->
+                contactos.filter { it != contactoActual }.forEach { contacto ->
                     DropdownMenuItem(
-                        text = { Text(usuario.Nombre) },
+                        text = { Text(contacto.Nombre) },
                         onClick = {
-                            vm.seleccionarDestinatario(usuario)
+                            vm.seleccionarDestinatario(contacto)
                             expanded = false
                         }
                     )
@@ -193,3 +197,4 @@ fun PagoScreen(navController: NavController) {
         }
     }
 }
+

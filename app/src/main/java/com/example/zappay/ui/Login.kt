@@ -25,7 +25,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.zappay.viewmodel.LoginViewModel
-import com.example.zappay.viewmodel.FormularioViewModel
 import kotlinx.coroutines.launch
 
 

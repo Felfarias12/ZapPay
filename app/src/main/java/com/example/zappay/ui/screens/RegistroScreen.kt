@@ -183,7 +183,6 @@ fun RegistroScreen(navController: NavController) {
         Button(
             onClick = {
                 if (viewModel.validarFormulario()) {
-
                     scope.launch{
                         // Registrar usuario
                         val usuarioNuevo= UsuarioRequest(

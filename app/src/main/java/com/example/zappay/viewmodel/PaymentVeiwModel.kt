@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zappay.remote.ApiService
 import com.example.zappay.remote.RetrofitInstance
+import com.example.zappay.request.ContactoRequest
 import com.example.zappay.request.UsuarioRequest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,19 +16,25 @@ class PaymentViewModel : ViewModel() {
 
     // Lista de usuarios desde API
     private val _usuarios = MutableStateFlow<List<UsuarioRequest>>(emptyList())
+    private val _contactos= MutableStateFlow<List<ContactoRequest>>(emptyList())
     val usuarios: StateFlow<List<UsuarioRequest>> get() = _usuarios
+    val contactos: StateFlow<List<ContactoRequest>> get() = _contactos
 
     // Usuario logueado (temporalmente el primero)
     private val _usuarioActual = MutableStateFlow<UsuarioRequest?>(null)
     val usuarioActual: StateFlow<UsuarioRequest?> get() = _usuarioActual
+
+    private val _contactosActual= MutableStateFlow<ContactoRequest?>(null)
+    val contactoActual: StateFlow<ContactoRequest?> get()= _contactosActual
+
 
     // Mensaje de error o éxito
     private val _mensaje = MutableStateFlow("")
     val mensaje: StateFlow<String> get() = _mensaje
 
     // Destinatario transferencia
-    private val _destinatario = MutableStateFlow<UsuarioRequest?>(null)
-    val destinatario: StateFlow<UsuarioRequest?> get() = _destinatario
+    private val _destinatario = MutableStateFlow<ContactoRequest?>(null)
+    val destinatario: StateFlow<ContactoRequest?> get() = _destinatario
 
     // -----------------------------
     // CARGAR USUARIOS DESDE LA API
@@ -48,11 +55,28 @@ class PaymentViewModel : ViewModel() {
         }
     }
 
+    fun cargarContacto(){
+        viewModelScope.launch {
+            try {
+                val lista2=api.getContactos()
+                _contactos.value=lista2
+
+                if (lista2.isNotEmpty()){
+                    _contactosActual.value=lista2.first()
+
+                }
+            }catch (e: Exception){
+                _mensaje.value="Error cargando contacto: ${e.localizedMessage}"
+            }
+        }
+
+    }
+
     // -----------------------------
     // SELECCIONAR DESTINATARIO
     // -----------------------------
-    fun seleccionarDestinatario(usuario: UsuarioRequest) {
-        _destinatario.value = usuario
+    fun seleccionarDestinatario(contacto: ContactoRequest) {
+        _destinatario.value = contacto
     }
 
     // -----------------------------

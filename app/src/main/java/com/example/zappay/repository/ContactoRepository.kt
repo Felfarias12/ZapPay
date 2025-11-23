@@ -5,6 +5,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.example.zappay.model.Contacto
+import com.example.zappay.remote.RetrofitInstance
+import com.example.zappay.request.ContactoRequest
 
 
 object ContactoRepository {
@@ -13,21 +15,21 @@ object ContactoRepository {
     val contactos: List<Contacto> get() = _contactos
     private var nextId = 1
 
-    fun crearNuevoContacto (
+    suspend fun crearNuevoContacto (
         nombre: String,
         rut: String,
         correo: String,
         saldo: Double = 0.0,
     ): Contacto? {
-        val contacto = Contacto(
-            id = nextId++,
-            nombre = nombre,
-            rut = rut,
-            correo = correo,
-            saldo = saldo
+        val request = ContactoRequest(
+            Nombre = nombre,
+            Rut= rut,
+            Correo = correo,
+            Saldo = saldo
         )
 
-        _contactos = _contactos + contacto
-        return contacto
+
+        return RetrofitInstance.api.crearNuevoContacto(request)
+
     }
 }

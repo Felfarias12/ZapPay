@@ -4,5 +4,5 @@ data class ContactoRequest(
     val Nombre: String,
     val Rut: String,
     val Correo: String,
-    var Saldo: Int
+    var Saldo: Double
 )

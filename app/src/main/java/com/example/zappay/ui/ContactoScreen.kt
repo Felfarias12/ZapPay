@@ -12,20 +12,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.zappay.model.Contacto
+import com.example.zappay.remote.RetrofitInstance
+import com.example.zappay.request.ContactoRequest
 import com.example.zappay.viewmodel.ContactoFormViewModel
 import com.example.zappay.viewmodel.ContactosViewModel
-
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun ContactosScreen(navController: NavController,
     viewModel: ContactosViewModel = viewModel(),
     formViewModel: ContactoFormViewModel = viewModel()
-) {
 
-
+)  {
+    val scope= rememberCoroutineScope()
     val contactos = viewModel.contactos
+    var mostrarConfirmacion by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        viewModel.cargarContacto()
+    }
 
     Column(
         modifier = Modifier
@@ -79,14 +84,14 @@ fun ContactosScreen(navController: NavController,
                 Button(
                     onClick = {
                         if (formViewModel.ValidarContacto()) {
-                            viewModel.addContacto(
-                                formViewModel.nombre,
-                                formViewModel.rut,
-                                formViewModel.correo
+                            scope.launch {
+                                val contactoNuevo= ContactoRequest(
+                                    formViewModel.nombre,
+                                    formViewModel.rut,
+                                    formViewModel.correo,
+                                    1000.0
                             )
-                            formViewModel.nombre = ""
-                            formViewModel.rut = ""
-                            formViewModel.correo = ""
+                                RetrofitInstance.api.crearNuevoContacto(contactoNuevo)}
                         }
                     },
                     modifier = Modifier
@@ -128,7 +133,7 @@ fun ContactosScreen(navController: NavController,
 
 
 @Composable
-fun ContactoItemCard(contacto: Contacto) {
+fun ContactoItemCard(contacto: ContactoRequest) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -144,18 +149,18 @@ fun ContactoItemCard(contacto: Contacto) {
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = contacto.nombre,
+                    text = contacto.Nombre,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = contacto.correo,
+                    text = contacto.Correo,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             Text(
-                text = "Saldo: $${"%.2f".format(contacto.saldo)}",
+                text = "Saldo: $${"%.2f".format(contacto.Saldo)}",
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.secondary
             )
