@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.room.ktx)
     implementation(libs.material3)

@@ -56,4 +56,12 @@ class ContactoFormViewModel : ViewModel()  {
 
         return esValido
     }
+    fun limpiarContacto() {
+        nombre = ""
+        rut= ""
+        correo = ""
+        errorNombre = ""
+        errorRut= ""
+        errorCorreo = ""
+    }
 }

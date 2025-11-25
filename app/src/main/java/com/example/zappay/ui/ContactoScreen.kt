@@ -91,7 +91,11 @@ fun ContactosScreen(navController: NavController,
                                     formViewModel.correo,
                                     1000.0
                             )
-                                RetrofitInstance.api.crearNuevoContacto(contactoNuevo)}
+                                RetrofitInstance.api.crearNuevoContacto(contactoNuevo)
+                                viewModel.cargarContacto()
+                                formViewModel.limpiarContacto()
+                            }
+                            mostrarConfirmacion=true
                         }
                     },
                     modifier = Modifier
@@ -128,6 +132,23 @@ fun ContactosScreen(navController: NavController,
                 }
             }
         }
+    }
+    //confirmacion
+    if (mostrarConfirmacion){
+        AlertDialog(
+            onDismissRequest = { mostrarConfirmacion = false },
+            title = { Text("Registro exitoso") },
+            text = { Text("Contacto registrado correctamente") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        mostrarConfirmacion = false
+                    }
+                ) {
+                    Text("Aceptar")
+                }
+            },
+        )
     }
 }
 

@@ -8,9 +8,9 @@ import com.example.zappay.request.UsuarioRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-
-
 class LoginViewModel : ViewModel() {
+    var usuarioLogeadoRut by mutableStateOf("")
+
 
     var usuarios by mutableStateOf<List<UsuarioRequest>>(emptyList())
         private set
@@ -31,6 +31,8 @@ class LoginViewModel : ViewModel() {
     // VALIDAR LOGIN
     fun validarUsuario(): Boolean {
 
+
+
         if (rut.isBlank()) {
             errorRut = "El rut es obligatorio"
             return false
@@ -47,8 +49,15 @@ class LoginViewModel : ViewModel() {
             it.Rut == rut && it.Contrasenna == password
         }
 
+        if (usuarioExiste) {
+            usuarioLogeadoRut = rut   // 🔥 Guarda quién inició sesión
+        }
+
+
         if (!usuarioExiste) {
             errorPassword = "Rut o contraseña incorrectos"
+        } else {
+            usuarioLogeadoRut = rut
         }
 
         return usuarioExiste
