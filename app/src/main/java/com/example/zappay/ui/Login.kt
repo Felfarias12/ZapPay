@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,18 +22,31 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.zappay.utils.SessionManager
 import com.example.zappay.viewmodel.LoginViewModel
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun Login(navController: NavController) {
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val viewModel: LoginViewModel = remember { LoginViewModel() }
+    val sessionManager = remember { SessionManager(context) }
 
+    // Verificar si ya está logueado
+    LaunchedEffect(Unit) {
+        if (sessionManager.isLoggedIn()) { //vee si ya hay una session activa
+            navController.navigate("InicioScreen") {  //si es true, pasa directo a este kt, que es el inicioscreen
+                popUpTo("Login") { inclusive = true }
+            }
+        } else {
+            viewModel.cargarUsuarios()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -69,7 +83,8 @@ fun Login(navController: NavController) {
         }
 
         Spacer(modifier = Modifier.height(16.dp))
-        //campo rut
+
+        // Campo contraseña
         OutlinedTextField(
             value = viewModel.password,
             onValueChange = { viewModel.password = it },
@@ -91,22 +106,15 @@ fun Login(navController: NavController) {
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-
         Button(
             onClick = {
                 scope.launch {
-
-                    // 1) Primero CARGAMOS los usuarios desde la API
-                    viewModel.cargarUsuarios()
-
-                    // 2) Luego validamos
                     if (viewModel.validarUsuario()) {
+                        // mantene la sesiosn(guardar session btw)
+                        sessionManager.saveLoginState(true, viewModel.rut)
                         navController.navigate("InicioScreen") {
-                            popUpTo("InicioScreen") { inclusive = true }
+                            popUpTo("Login") { inclusive = true }
                         }
-                    } else {
-                        // Puedes mostrar un mensaje usando un Snackbar o un estado
-                        println("Usuario o contraseña incorrectos")
                     }
                 }
             },
@@ -117,13 +125,12 @@ fun Login(navController: NavController) {
             Text("Iniciar Sesion")
         }
 
-
         Spacer(modifier = Modifier.height(10.dp))
 
-        // Botón Volver
+        // notón Volver
         Button(
             onClick = {
-                // Esto lleva a la pantalla principal
+                // lleva a la pantalla principal
                 navController.navigate("PaginaInicio") {
                     popUpTo("PaginaInicio") { inclusive = true }
                 }
@@ -134,10 +141,8 @@ fun Login(navController: NavController) {
                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer
             )
         ) {
-            Text("Cerrar Sesion")
+            Text("Volver al Inicio")
         }
-
     }
 }
-
 

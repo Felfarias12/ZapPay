@@ -1,6 +1,5 @@
 package com.example.zappay.ui.screens
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,13 +14,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-
+import com.example.zappay.utils.SessionManager
 
 @Composable
 fun InicioScreen(navController: NavController) {
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -45,70 +46,70 @@ fun InicioScreen(navController: NavController) {
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
-        Spacer(modifier = Modifier.height(40.dp))
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+    Spacer(modifier = Modifier.height(40.dp))
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        // Botones de navegación
+        Button(
+            onClick = { navController.navigate("AgregarUsuarios") },
+            modifier = Modifier.fillMaxWidth()
         ) {
-            // Botones de navegación
-            Button(
-                onClick = { navController.navigate("AgregarUsuarios") },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Agregar Contacto")
-            }
+            Text("Agregar Contacto")
+        }
 
-            Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-            Button(
-                onClick = { navController.navigate("PagoScreen") },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Realizar Pago")
-            }
+        Button(
+            onClick = { navController.navigate("PagoScreen") },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Realizar Pago")
+        }
 
-            Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-            Button(
-                onClick = { navController.navigate("ListaUsuariosScreen") },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Ver Usuarios")
-            }
+        Button(
+            onClick = { navController.navigate("ListaUsuariosScreen") },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Ver Usuarios")
+        }
 
-            Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-            Button(
-                onClick = { navController.navigate("CamaraFotos") },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
-                )
-            ) {
-                Text("Configurar Reconocimiento Facial")
-            }
+        Button(
+            onClick = { navController.navigate("CamaraFotos") },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary
+            )
+        ) {
+            Text("Configurar Reconocimiento Facial")
+        }
 
-            Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-            // Botón Volver
-            Button(
-                onClick = {
-                    // Esto lleva a la pantalla principal
-                    navController.navigate("PaginaInicio") {
-                        popUpTo("PaginaInicio") { inclusive = true }
-                    }
-                },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-            ) {
-                Text("Cerrar Sesion")
-            }
+        // boton cerrar sesión actualizado
+        Button(
+            onClick = {
 
+                SessionManager(context).logout() // limpiar sesión y volver al inicio
+                navController.navigate("PaginaInicio") {
+                    popUpTo("InicioScreen") { inclusive = true }
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+            )
+        ) {
+            Text("Cerrar Sesion")
         }
     }
+}
