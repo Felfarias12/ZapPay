@@ -15,6 +15,8 @@ object UsuarioRepository {
     private var nextId = 1
 
     suspend fun crearNuevoUsuario(
+        id:Int,
+        createdAt:Long,
         nombre: String,
         correo: String,
         edad: String,
@@ -24,12 +26,14 @@ object UsuarioRepository {
     ): Usuario {
 
         val request = UsuarioRequest(
-            Nombre = nombre,
-            Correo = correo,
-            Edad = edad,
-            Contrasenna = contraseña,
-            Rut = rut,
-            Saldo = saldo
+            id = id,
+            createdAt = createdAt,
+            nombre = nombre,
+            correo = correo,
+            edad = edad,
+            contrasenna = contraseña,
+            rut = rut,
+            saldo = saldo
         )
 
         return RetrofitInstance.api.crearNuevoUsuario(request)

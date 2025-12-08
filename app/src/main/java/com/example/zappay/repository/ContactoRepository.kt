@@ -16,16 +16,20 @@ object ContactoRepository {
     private var nextId = 1
 
     suspend fun crearNuevoContacto (
+        id:Int,
+        createdAt: Long,
         nombre: String,
         rut: String,
         correo: String,
         saldo: Double = 0.0,
     ): Contacto? {
         val request = ContactoRequest(
-            Nombre = nombre,
-            Rut= rut,
-            Correo = correo,
-            Saldo = saldo
+            id = id,
+            nombre = nombre,
+            rut = rut,
+            correo = correo,
+            saldo = saldo,
+            createdAt = createdAt
         )
 
 

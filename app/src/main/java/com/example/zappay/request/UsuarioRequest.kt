@@ -1,10 +1,16 @@
 package com.example.zappay.request
 
+import com.google.gson.annotations.SerializedName
+
 data class UsuarioRequest(
-    var Nombre: String,
-    var Correo: String,
-    var Edad: String,
-    var Contrasenna: String,
-    var Rut: String,
-    var Saldo: Double    // ← DEBE SER var
+    @SerializedName("id") val id: Int,
+    @SerializedName("created_at") val createdAt: Long,
+    @SerializedName("Nombre") val nombre: String,
+    @SerializedName("Correo") val correo: String,
+    @SerializedName("Edad") val edad: String,
+    @SerializedName("Contrasenna") val contrasenna: String,
+    @SerializedName("Rut") val rut: String,
+    @SerializedName("Saldo") var saldo: Double
 )
+
+

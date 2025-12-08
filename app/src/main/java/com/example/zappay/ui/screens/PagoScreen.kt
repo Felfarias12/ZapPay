@@ -102,8 +102,8 @@ fun PagoScreen(navController: NavController) {
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text("Usuario Actual:")
-                Text("Nombre: ${usuarioActual?.Nombre}")
-                Text("Saldo: $${usuarioActual?.Saldo}")
+                Text("Nombre: ${usuarioActual?.nombre}")
+                Text("Saldo: $${usuarioActual?.saldo}")
             }
         }
 
@@ -135,7 +135,7 @@ fun PagoScreen(navController: NavController) {
                 onClick = { expanded = true },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(destinatario?.Nombre ?: "Seleccionar destinatario")
+                Text(destinatario?.nombre ?: "Seleccionar destinatario")
             }
 
             DropdownMenu(
@@ -144,7 +144,7 @@ fun PagoScreen(navController: NavController) {
             ) {
                 contactos.filter { it != contactoActual }.forEach { contacto ->
                     DropdownMenuItem(
-                        text = { Text(contacto.Nombre) },
+                        text = { Text(contacto.nombre) },
                         onClick = {
                             vm.seleccionarDestinatario(contacto)
                             expanded = false
@@ -158,7 +158,7 @@ fun PagoScreen(navController: NavController) {
 
         Button(
             onClick = {
-                vm.transferirFondos(montoTransferencia.toDoubleOrNull() ?: 0.0)
+                vm.transferirFondosAPI(montoTransferencia.toDoubleOrNull() ?: 0.0)
             },
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -170,8 +170,8 @@ fun PagoScreen(navController: NavController) {
         usuarioActual?.let {
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Usuario Actual: ${it.Nombre}")
-                    Text("Saldo: $${it.Saldo}")
+                    Text("Usuario Actual: ${it.nombre}")
+                    Text("Saldo: $${it.saldo}")
                 }
             }
         }
@@ -181,8 +181,8 @@ fun PagoScreen(navController: NavController) {
         destinatario?.let {
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Destinatario: ${it.Nombre}")
-                    Text("Saldo: $${it.Saldo}")
+                    Text("Destinatario: ${it.nombre}")
+                    Text("Saldo: $${it.saldo}")
                 }
             }
         }

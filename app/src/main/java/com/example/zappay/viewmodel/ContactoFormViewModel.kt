@@ -8,6 +8,8 @@ import com.example.zappay.repository.UsuarioRepository
 
 class ContactoFormViewModel : ViewModel()  {
 
+    var id by mutableStateOf(1)
+    var createdAt by mutableStateOf(0L)
     var nombre by mutableStateOf("")
     var rut by mutableStateOf("")
     var correo by mutableStateOf("")

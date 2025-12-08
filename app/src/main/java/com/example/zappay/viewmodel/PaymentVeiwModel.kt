@@ -5,10 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.zappay.remote.ApiService
 import com.example.zappay.remote.RetrofitInstance
 import com.example.zappay.request.ContactoRequest
+import com.example.zappay.request.TransferenciaRequest
 import com.example.zappay.request.UsuarioRequest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+
 
 class PaymentViewModel : ViewModel() {
 
@@ -90,37 +92,41 @@ class PaymentViewModel : ViewModel() {
             return
         }
 
-        if (user.Saldo >= monto) {
-            user.Saldo -= monto
+        if (user.saldo >= monto) {
+            user.saldo -= monto
             _mensaje.value = "Pago exitoso. Se descontó $$monto"
         } else {
-            _mensaje.value = "Saldo insuficiente. Tu saldo es: $${user.Saldo}"
+            _mensaje.value = "Saldo insuficiente. Tu saldo es: $${user.saldo}"
         }
     }
 
     // -----------------------------
     // TRANSFERIR
     // -----------------------------
-    fun transferirFondos(monto: Double) {
-        val user = _usuarioActual.value
-        val dest = _destinatario.value
+    fun transferirFondosAPI(monto: Double) {
+        val user = _usuarioActual.value ?: return
+        val dest = _destinatario.value ?: return
 
-        if (user == null || dest == null) {
-            _mensaje.value = "Selecciona un destinatario"
-            return
-        }
+        viewModelScope.launch {
+            try {
+                val body = TransferenciaRequest(
+                    idOrigen = user.id,
+                    idDestino = dest.id,
+                    monto = monto
+                )
 
-        if (monto <= 0) {
-            _mensaje.value = "El monto debe ser mayor a 0"
-            return
-        }
+                val response = api.transferirFondos(body)
 
-        if (user.Saldo >= monto) {
-            user.Saldo -= monto
-            dest.Saldo += monto
-            _mensaje.value = "Transferencia de $$monto a ${dest.Nombre} realizada con éxito"
-        } else {
-            _mensaje.value = "Saldo insuficiente. Tu saldo es: ${user.Saldo}"
+                // Actualizar modelos locales
+                _usuarioActual.value = response.usuarioOrigen
+                _destinatario.value = response.usuarioDestino
+
+                _mensaje.value = "Transferencia exitosa"
+
+            } catch (e: Exception) {
+                _mensaje.value = "Error: ${e.localizedMessage}"
+            }
         }
     }
+
 }

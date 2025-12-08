@@ -86,6 +86,8 @@ fun ContactosScreen(navController: NavController,
                         if (formViewModel.ValidarContacto()) {
                             scope.launch {
                                 val contactoNuevo= ContactoRequest(
+                                    formViewModel.id,
+                                    formViewModel.createdAt,
                                     formViewModel.nombre,
                                     formViewModel.rut,
                                     formViewModel.correo,
@@ -170,18 +172,18 @@ fun ContactoItemCard(contacto: ContactoRequest) {
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = contacto.Nombre,
+                    text = contacto.nombre,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = contacto.Correo,
+                    text = contacto.correo,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             Text(
-                text = "Saldo: $${"%.2f".format(contacto.Saldo)}",
+                text = "Saldo: $${"%.2f".format(contacto.saldo)}",
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.secondary
             )

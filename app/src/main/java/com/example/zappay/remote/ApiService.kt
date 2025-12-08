@@ -3,7 +3,9 @@ package com.example.zappay.remote
 import com.example.zappay.model.Contacto
 import com.example.zappay.model.Usuario;
 import com.example.zappay.request.ContactoRequest
+import com.example.zappay.request.TransferenciaRequest
 import com.example.zappay.request.UsuarioRequest
+import com.example.zappay.response.TransferenciaResponse
 import retrofit2.http.Body
 import retrofit2.http.GET;
 import retrofit2.http.POST
@@ -21,6 +23,13 @@ interface ApiService {
 
     @POST("https://x8ki-letl-twmt.n7.xano.io/api:As3yMSAT/contactos")
     suspend fun crearNuevoContacto(@Body request: ContactoRequest): Contacto
-    }
+
+    @POST("https://x8ki-letl-twmt.n7.xano.io/api:Lf_wNtyj/transferencia")
+    suspend fun transferirFondos(@Body body: TransferenciaRequest): TransferenciaResponse
+
+}
+
+
+
 
 

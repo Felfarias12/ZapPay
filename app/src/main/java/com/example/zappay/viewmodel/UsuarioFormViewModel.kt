@@ -8,7 +8,8 @@ import com.example.zappay.repository.UsuarioRepository
 
 
 class UsuarioFormViewModel : ViewModel() {
-
+    var id by mutableStateOf(1)
+    var createdAt by mutableStateOf(0L)
     var nombre by mutableStateOf("")
     var correo by mutableStateOf("")
     var edad by mutableStateOf("")

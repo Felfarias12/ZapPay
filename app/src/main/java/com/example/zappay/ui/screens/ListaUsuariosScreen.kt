@@ -85,13 +85,13 @@ fun ListaUsuariosScreen(navController: NavController) {
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
                                 Text(
-                                    usuario.Nombre,
+                                    usuario.nombre,
                                     style = MaterialTheme.typography.titleMedium
                                 )
-                                Text("Correo: ${usuario.Correo}")
-                                Text("Rut: ${usuario.Rut}")
-                                Text("Edad: ${usuario.Edad}")
-                                Text("Saldo: ${usuario.Saldo}")
+                                Text("Correo: ${usuario.correo}")
+                                Text("Rut: ${usuario.rut}")
+                                Text("Edad: ${usuario.edad}")
+                                Text("Saldo: ${usuario.saldo}")
                             }
                         }
                     }

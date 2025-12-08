@@ -186,6 +186,8 @@ fun RegistroScreen(navController: NavController) {
                     scope.launch{
                         // Registrar usuario
                         val usuarioNuevo= UsuarioRequest(
+                            viewModel.id,
+                            viewModel.createdAt,
                             viewModel.nombre,
                             viewModel.correo,
                             viewModel.edad,

@@ -46,7 +46,7 @@ class LoginViewModel : ViewModel() {
         errorPassword = ""
 
         val usuarioExiste = usuarios.any {
-            it.Rut == rut && it.Contrasenna == password
+            it.rut == rut && it.contrasenna == password
         }
 
         if (usuarioExiste) {
