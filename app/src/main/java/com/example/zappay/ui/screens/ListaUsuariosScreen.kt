@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.zappay.repository.UsuarioRepository
+import com.example.zappay.utils.SessionManager
 import com.example.zappay.viewmodel.LoginViewModel
 
 @Composable
@@ -33,11 +34,6 @@ fun ListaUsuariosScreen(navController: NavController) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text(
-            "Usuarios Registrados",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -93,6 +89,12 @@ fun ListaUsuariosScreen(navController: NavController) {
                                 Text("Edad: ${usuario.edad}")
                                 Text("Saldo: ${usuario.saldo}")
                             }
+                        }
+                        TextButton(
+                            onClick = { navController.popBackStack() },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("Volver al inicio")
                         }
                     }
                 }

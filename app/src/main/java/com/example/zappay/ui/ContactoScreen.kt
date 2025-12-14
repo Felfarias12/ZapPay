@@ -100,11 +100,12 @@ fun ContactosScreen(navController: NavController,
                             mostrarConfirmacion=true
                         }
                     },
-                    modifier = Modifier
-                        .padding(top = 16.dp)
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().height(40.dp)
                 ) {
-                    Text("Guardar Contacto")
+                    Text(
+                        text =" Guardar Contacto",
+                        style = MaterialTheme.typography.titleMedium
+                    )
                 }
             }
         }
