@@ -1,13 +1,17 @@
 package com.example.zappay.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -22,10 +26,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.zappay.R
 import com.example.zappay.utils.SessionManager
 import com.example.zappay.viewmodel.LoginViewModel
 import kotlinx.coroutines.launch
@@ -54,12 +62,28 @@ fun Login(navController: NavController) {
             .padding(24.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            "Inicio Sesion",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(bottom = 24.dp),
-            color = MaterialTheme.colorScheme.onBackground
-        )
+        Row (
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth()
+        ){
+            Image(
+                painter = painterResource(id = R.drawable.foto_perfil),
+                contentDescription = "Foto de Perfil",
+                modifier = Modifier.size(60.dp).clip(CircleShape),
+                contentScale = ContentScale.Crop
+            )
+
+            Spacer(modifier = Modifier.width(20.dp))
+
+            Text(
+                "Inicio Sesion",
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }
+
+        Spacer(modifier = Modifier.height(30.dp))
 
         // Campo Rut
         OutlinedTextField(
@@ -104,7 +128,7 @@ fun Login(navController: NavController) {
                 modifier = Modifier.padding(start = 16.dp, top = 4.dp)
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         Button(
             onClick = {
@@ -119,13 +143,16 @@ fun Login(navController: NavController) {
                 }
             },
             modifier = Modifier
-                .width(250.dp)
+                .fillMaxWidth().height(50.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
-            Text("Iniciar Sesion")
+            Text(
+                text="Iniciar Sesion",
+                style = MaterialTheme.typography.titleMedium
+            )
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         // notón Volver
         Button(
@@ -135,13 +162,15 @@ fun Login(navController: NavController) {
                     popUpTo("PaginaInicio") { inclusive = true }
                 }
             },
-            modifier = Modifier.width(250.dp).align(Alignment.CenterHorizontally),
+            modifier = Modifier.fillMaxWidth().height(50.dp).align(Alignment.CenterHorizontally),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer
             )
         ) {
-            Text("Volver al Inicio")
+            Text(
+                text="Volver al Inicio",
+                style = MaterialTheme.typography.titleMedium)
         }
     }
 }

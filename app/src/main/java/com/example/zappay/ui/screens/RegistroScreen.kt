@@ -35,7 +35,7 @@ fun RegistroScreen(navController: NavController) {
         Text(
             "Registro de Usuario",
             style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(bottom = 24.dp),
+            modifier = Modifier.padding(top = 16.dp,bottom = 24.dp),
             color = MaterialTheme.colorScheme.onBackground
         )
 
@@ -200,9 +200,12 @@ fun RegistroScreen(navController: NavController) {
                     mostrarConfirmacion = true
                 }
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().height(50.dp)
         ) {
-            Text("Registrar Usuario")
+            Text(
+                text = "Registrar Usuario",
+                style = MaterialTheme.typography.titleMedium
+            )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -215,13 +218,16 @@ fun RegistroScreen(navController: NavController) {
                     popUpTo("PaginaInicio") { inclusive = true }
                 }
             },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().height(50.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer
             )
         ) {
-            Text("Volver al Inicio")
+            Text(
+                text = "Volver al Inicio",
+                style = MaterialTheme.typography.titleMedium
+            )
         }
 
         // Diálogo de confirmación
