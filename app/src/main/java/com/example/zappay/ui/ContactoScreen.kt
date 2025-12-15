@@ -110,6 +110,16 @@ fun ContactosScreen(navController: NavController,
             }
         }
 
+        Spacer(modifier = Modifier.height(14.dp))
+
+        TextButton(
+            onClick = { navController.popBackStack() },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Volver al inicio")
+        }
+
+
         Spacer(modifier = Modifier.height(24.dp))
         Divider()
         Spacer(modifier = Modifier.height(16.dp))
