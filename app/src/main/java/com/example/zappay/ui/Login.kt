@@ -1,7 +1,9 @@
 package com.example.zappay.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +16,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -27,9 +31,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -56,122 +62,143 @@ fun Login(navController: NavController) {
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
-        Row (
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth()
-        ){
-            Image(
-                painter = painterResource(id = R.drawable.foto_perfil),
-                contentDescription = "Foto de Perfil",
-                modifier = Modifier.size(60.dp).clip(CircleShape),
-                contentScale = ContentScale.Crop
-            )
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
 
-            Spacer(modifier = Modifier.width(20.dp))
-
-            Text(
-                "Inicio Sesion",
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        // Campo Rut
-        OutlinedTextField(
-            value = viewModel.rut,
-            onValueChange = { viewModel.rut = it },
-            label = { Text("Rut (Con punto y Guion)") },
-            modifier = Modifier.fillMaxWidth(),
-            isError = viewModel.errorRut.isNotBlank(),
-            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
-                keyboardType = KeyboardType.Text
-            )
-        )
-
-        if (viewModel.errorRut.isNotBlank()) {
-            Text(
-                viewModel.errorRut,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
-            )
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Campo contraseña
-        OutlinedTextField(
-            value = viewModel.password,
-            onValueChange = { viewModel.password = it },
-            label = { Text("Contraseña") },
-            modifier = Modifier.fillMaxWidth(),
-            isError = viewModel.errorPassword.isNotBlank(),
-            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
-                keyboardType = KeyboardType.Text
-            )
-        )
-
-        if (viewModel.errorPassword.isNotBlank()) {
-            Text(
-                viewModel.errorPassword,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
-            )
-        }
-        Spacer(modifier = Modifier.height(30.dp))
-
-        Button(
-            onClick = {
-                scope.launch {
-                    if (viewModel.validarUsuario()) {
-                        // mantene la sesiosn(guardar session btw)
-                        sessionManager.saveLoginState(true, viewModel.rut)
-                        navController.navigate("InicioScreen") {
-                            popUpTo("Login") { inclusive = true }
-                        }
-                    }
-                }
-            },
+    ){
+        Card(
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.White),
             modifier = Modifier
-                .fillMaxWidth().height(50.dp)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            Text(
-                text="Iniciar Sesion",
-                style = MaterialTheme.typography.titleMedium
-            )
-        }
+                .fillMaxWidth(0.85f)
+                .padding(16.dp)
+        ){
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Column (
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    Image(
+                        painter = painterResource(id = R.drawable.foto_perfil),
+                        contentDescription = "Foto de Perfil",
+                        modifier = Modifier.
+                        size(60.dp).
+                        clip(CircleShape).
+                        border(2.dp, Color.LightGray, CircleShape),
+                        contentScale = ContentScale.Crop
+                    )
 
-        Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
 
-        // notón Volver
-        Button(
-            onClick = {
-                // lleva a la pantalla principal
-                navController.navigate("PaginaInicio") {
-                    popUpTo("PaginaInicio") { inclusive = true }
+                    Text(
+                        "Inicio Sesion",
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = Color.Black
+                    )
                 }
-            },
-            modifier = Modifier.fillMaxWidth().height(50.dp).align(Alignment.CenterHorizontally),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-            )
-        ) {
-            Text(
-                text="Volver al Inicio",
-                style = MaterialTheme.typography.titleMedium)
+
+                Spacer(modifier = Modifier.height(30.dp))
+
+                // Campo Rut
+                OutlinedTextField(
+                    value = viewModel.rut,
+                    onValueChange = { viewModel.rut = it },
+                    label = { Text("Rut (Con punto y Guion)", color = Color.Gray)},
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = viewModel.errorRut.isNotBlank(),
+                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                        keyboardType = KeyboardType.Text
+                    ),
+                    textStyle = TextStyle(color = Color.Black)
+                )
+
+                if (viewModel.errorRut.isNotBlank()) {
+                    Text(
+                        viewModel.errorRut,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Campo contraseña
+                OutlinedTextField(
+                    value = viewModel.password,
+                    onValueChange = { viewModel.password = it },
+                    label = { Text("Contraseña", color = Color.Gray) },
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = viewModel.errorPassword.isNotBlank(),
+                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                        keyboardType = KeyboardType.Text
+                    ),
+                    textStyle = TextStyle(color = Color.Black)
+                )
+
+                if (viewModel.errorPassword.isNotBlank()) {
+                    Text(
+                        viewModel.errorPassword,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.height(30.dp))
+
+                Button(
+                    onClick = {
+                        scope.launch {
+                            if (viewModel.validarUsuario()) {
+                                // mantene la sesiosn(guardar session btw)
+                                sessionManager.saveLoginState(true, viewModel.rut)
+                                navController.navigate("InicioScreen") {
+                                    popUpTo("Login") { inclusive = true }
+                                }
+                            }
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth().height(50.dp)
+                        .align(Alignment.CenterHorizontally)
+                ) {
+                    Text(
+                        text="Iniciar Sesion",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(15.dp))
+
+                // notón Volver
+                Button(
+                    onClick = {
+                        // lleva a la pantalla principal
+                        navController.navigate("PaginaInicio") {
+                            popUpTo("PaginaInicio") { inclusive = true }
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth().height(50.dp).align(Alignment.CenterHorizontally),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                ) {
+                    Text(
+                        text="Volver al Inicio",
+                        style = MaterialTheme.typography.titleMedium)
+                }
+            }
         }
-    }
+        }
 }
+
+
+
 
